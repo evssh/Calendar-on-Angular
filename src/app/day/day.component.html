@@ -1,0 +1,12 @@
+<div style="padding-left: 1px; padding-bottom: 0px; width: 400px;"  *ngIf="day" >
+
+  <h5>
+    <button (click)="onClickLeft()"><</button>
+    {{day | date: 'd MMMM'}}
+    <button (click)="onClickRight()">></button>
+  </h5>
+
+  Time:
+  <div *ngFor="let hour of hours" style="text-align: left">{{hour}}</div>
+
+</div>
