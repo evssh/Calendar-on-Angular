@@ -1,11 +1,14 @@
 <h2 style="text-align: center">The calendar</h2>
 <table style="align-self: baseline">
-  <tr style="vertical-align: 10px" >
-    <td style="background: burlywood">
+  <tr style="vertical-align: 10px;" >
+    <td style="background: burlywood;">
       <app-view
         (onAdd)="chooseDate($event)"
       ></app-view>
     </td>
+  <td>
+    <app-add-event></app-add-event>
+  </td>
     <td style="background: aquamarine; align-self: baseline">
       <app-day
         [day]="selectDay"
