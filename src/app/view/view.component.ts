@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-view',
@@ -6,17 +6,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
+
+  @Output() onAdd: EventEmitter<Date> = new EventEmitter<Date>()
+
   firstDay: Date
   tempArr: Array<any>
   theMonth: number
   monthView: Date
+  selectDay: Date
   today = new Date()
 
   constructor() { }
   ngOnInit() {
     this.refresh()
   }
-
+  onClick(event) {
+    if (event.target.innerText != '') {
+      this.selectDay = new Date(this.monthView.getFullYear(), this.monthView.getMonth(), event.target.innerText)
+      this.onAdd.emit(this.selectDay)
+    }
+  }
   onClickLeft() {
     this.today.setMonth(this.today.getMonth()-1)
     this.refresh()

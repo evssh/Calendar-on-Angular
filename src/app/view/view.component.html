@@ -1,12 +1,10 @@
 <div [class.main]="today">
-  <h3>{{today | date: 'd MMMM yyyy'}}</h3>
-  <h4>
+  <h4>{{today | date: 'd MMMM yyyy'}}</h4>
+  <h5>
     <button (click)="onClickLeft()"><</button>
-
     {{monthView | date: 'MMMM yyyy'}}
-
     <button (click)="onClickRight()">></button>
-  </h4>
+  </h5>
   <div [class.cell]="today">Mo</div>
   <div [class.cell]="today">Tu</div>
   <div [class.cell]="today">We</div>
@@ -14,6 +12,5 @@
   <div [class.cell]="today">Fr</div>
   <div [class.cellweekend]="today">Sa</div>
   <div [class.cellweekend]="today">Su</div>
-  <div [class.cell]="today" *ngFor="let cell of tempArr">{{cell}}</div>
+  <div [class.cell]="today" (click)="onClick($event)" *ngFor="let cell of tempArr">{{cell}}</div>
 </div>
-

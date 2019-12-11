@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'calendr';
+  selectDay: Date
+
+  chooseDate(date) {
+    this.selectDay = new Date(date)
+    console.log('select: ', this.selectDay)
+  }
 }
