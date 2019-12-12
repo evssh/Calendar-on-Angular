@@ -6,6 +6,8 @@
     <button (click)="onClickRight()">></button>
   </h5>
 
+  <button (click)="eventInDay()">?</button>
+
   <table style="font-size: 14px">
     <th>Time:</th>
     <tr *ngFor="let hour of hours">
@@ -14,6 +16,10 @@
       <td> Text </td>
     </tr>
   </table>
+
+  <p *ngFor="let ev of tempArrEvent">{{ev.title}}</p>
+
+<!--  {{eventElement.title}}-->
 
 <!--  <div *ngFor="let hour of hours" style="text-align: left">-->
 

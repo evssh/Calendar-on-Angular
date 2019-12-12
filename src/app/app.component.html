@@ -19,8 +19,10 @@
 
       <app-day
         [day]="selectDay"
-        [events] = "events"
-      ></app-day>
+        [eventsMy]="events" >
+<!--        *ngFor="let evnt of events"-->
+<!--        [eventElement] = evnt-->
+      </app-day>
 
     </td>
   </tr>
