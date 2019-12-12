@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-add-event',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-event.component.scss']
 })
 export class AddEventComponent implements OnInit {
+
+ @Input() day
 
   constructor() { }
 

@@ -7,7 +7,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class ViewComponent implements OnInit {
 
-  @Output() onAdd: EventEmitter<Date> = new EventEmitter<Date>()
+  @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
 
   firstDay: Date
   tempArr: Array<any>
@@ -22,8 +22,9 @@ export class ViewComponent implements OnInit {
   }
   onClick(event) {
     if (event.target.innerText != '') {
-      this.selectDay = new Date(this.monthView.getFullYear(), this.monthView.getMonth(), event.target.innerText)
-      this.onAdd.emit(this.selectDay)
+      this.selectDay = new Date(this.monthView.getFullYear(),
+                                  this.monthView.getMonth(), event.target.innerText)
+      this.onSelectDay.emit(this.selectDay)
     }
   }
   onClickLeft() {

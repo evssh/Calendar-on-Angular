@@ -1,7 +1,16 @@
-<p>Add event:</p>
-<br>
-<p>Date</p>
-<p>Time</p>
-<p>Title</p>
-<p>Description</p>
+<div *ngIf="day">
+
+  <p>Add event:</p>
+  <br>
+  <input type="date" value="{{this.day | date:'yyyy-MM-dd'}}">
+  <input type="time" value="{{this.day | date: 'hh:mm'}}">
+  <br>
+  <input type="text" value="Title">
+  <br>
+  <input type="text" value="Description">
+  <br>
+  <button>Add</button>
+
+</div>
+
 

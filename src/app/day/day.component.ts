@@ -8,13 +8,22 @@ import {Component, Input, OnInit} from '@angular/core';
 export class DayComponent implements OnInit {
 
   @Input() day
+  @Input() events
 
   hours: Array<number> = []
+  tempArrEvent: Event[] = []
 
   constructor() { }
 
   ngOnInit() {
     this.pushHours()
+    console.log(this.events)
+  }
+
+  eventInDay() {
+    for (let i = 0; i < this.events.length; i++) {
+
+    }
   }
 
   pushHours() {

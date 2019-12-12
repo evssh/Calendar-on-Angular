@@ -6,7 +6,20 @@
     <button (click)="onClickRight()">></button>
   </h5>
 
-  Time:
-  <div *ngFor="let hour of hours" style="text-align: left">{{hour}}</div>
+  <table style="font-size: 14px">
+    <th>Time:</th>
+    <tr *ngFor="let hour of hours">
+      <td>{{hour}}</td>
+      <td> Title: </td>
+      <td> Text </td>
+    </tr>
+  </table>
+
+<!--  <div *ngFor="let hour of hours" style="text-align: left">-->
+
+<!--    <div style="float: left">Title</div>-->
+<!--    <div style="float: left">Text</div>-->
+<!--    {{hour}}-->
+<!--  </div>-->
 
 </div>
