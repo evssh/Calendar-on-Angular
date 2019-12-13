@@ -1,5 +1,6 @@
-<div [class.main]="today">
+<div [class.main]="today" *ngIf="onOff">
   <h4>{{today | date: 'd MMMM yyyy'}}</h4>
+  <h4><button>Add event</button></h4>
   <h5>
     <button (click)="onClickLeft()"><</button>
     {{monthView | date: 'MMMM yyyy'}}
@@ -15,5 +16,19 @@
   <div [class.cell]="today"
        (click)="onClick($event)"
        *ngFor="let cell of tempArr">
-    <div *ngIf="cell!=' '">{{cell | date:'dd'}}</div></div>
+    <div *ngIf="cell!=' '"
+         [ngStyle]="{
+          color: painToday(cell | date:'dd')? 'blue':'black',
+          fontWeight: painToday(cell | date:'dd')? 'bold':'',
+          textDecoration: painToday(cell | date:'dd')? 'underline':'',
+          borderRadius: '10px',
+          background: paintEvent(cell | date:'dd')? 'white':'burlywood',
+          cursor: paintEvent(cell | date:'dd')? 'pointer':'default'
+         }">
+      {{cell | date:'dd'}}
+    </div>
+
+  </div>
 </div>
+
+

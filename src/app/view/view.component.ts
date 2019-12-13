@@ -9,8 +9,10 @@ import {EventMy} from "../app.component";
 export class ViewComponent implements OnInit {
 
   @Input() eventsMy: EventMy[]
+  @Input() onOff: boolean
 
   @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
+  @Output() viewOnOff: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   firstDay: Date
   tempArr: Array<any>
@@ -18,19 +20,30 @@ export class ViewComponent implements OnInit {
   monthView: Date
   selectDay: Date
   today = new Date()
-  flagToday: number
 
   constructor() { }
   ngOnInit() {
     this.refresh()
-    this.flagToday = this.today.getDate()
-    console.log('flag:', this.flagToday)
+  }
+
+  paintEvent(day){
+    for (let i = 0; i < this.eventsMy.length; i++) {
+      if ((this.eventsMy[i].date.getMonth() == this.theMonth) &&
+        (this.eventsMy[i].date.getDate() == +day))
+        return true
+    }
+  }
+  painToday(day){
+    let temp = new Date()
+    let tempDay = temp.getDate()
+    if (+day == tempDay && this.monthView.getMonth() == temp.getMonth()) return true
   }
   onClick(event) {
-    if (event.target.innerText != '') {
+    if (event.target.innerText != '' && event.target.innerText != ' ' && event.target.innerText != '*') {
       this.selectDay = new Date(this.monthView.getFullYear(),
                                   this.monthView.getMonth(), event.target.innerText)
       this.onSelectDay.emit(this.selectDay)
+      this.viewOnOff.emit(!this.onOff)
     }
   }
   onClickLeft() {

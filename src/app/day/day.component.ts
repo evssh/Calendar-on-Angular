@@ -10,7 +10,7 @@ export class DayComponent implements OnInit, OnChanges {
 
   @Input() day
   @Input() eventsMy: EventMy[]
-  // @Input() eventElement: EventMy
+  @Input() onOffD: boolean
 
   hours: Array<number> = []
   tempArrEvent: EventMy[]
