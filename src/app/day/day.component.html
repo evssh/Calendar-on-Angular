@@ -6,18 +6,31 @@
     <button (click)="onClickRight()">></button>
   </h5>
 
-  <button (click)="eventInDay()">?</button>
+<!--  <button (click)="eventInDay()">?</button>-->
+
+<!--  <table style="font-size: 14px">-->
+<!--    <th>Time:</th>-->
+<!--    <tr *ngFor="let hour of hours">-->
+<!--      <td>{{hour}}</td>-->
+<!--      <td> Title: </td>-->
+<!--      <td> Text </td>-->
+<!--    </tr>-->
+<!--  </table>-->
 
   <table style="font-size: 14px">
-    <th>Time:</th>
-    <tr *ngFor="let hour of hours">
-      <td>{{hour}}</td>
-      <td> Title: </td>
-      <td> Text </td>
+    <th>Time</th>
+    <th>Title</th>
+    <th>Text</th>
+    <tr *ngFor="let ev of showArrEvents">
+      <td>{{ev.date | date:'HH:mm'}}</td>
+      <td><b>{{ev.title}}</b></td>
+      <td>{{ev.text}}</td>
+      <button *ngIf="ev.title!=''">Edit</button>
+      <button *ngIf="ev.title!=''" style="background: red">x</button>
     </tr>
   </table>
 
-  <p *ngFor="let ev of tempArrEvent">{{ev.title}}</p>
+<!--  <p *ngFor="let ev of showArrEvents">{{ev.date | date:'HH'}}   {{ev.title}}   {{ev.text}}</p>-->
 
 <!--  {{eventElement.title}}-->
 

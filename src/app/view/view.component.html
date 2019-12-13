@@ -12,5 +12,8 @@
   <div [class.cell]="today">Fr</div>
   <div [class.cellweekend]="today">Sa</div>
   <div [class.cellweekend]="today">Su</div>
-  <div [class.cell]="today" (click)="onClick($event)" *ngFor="let cell of tempArr">{{cell}}</div>
+  <div [class.cell]="today"
+       (click)="onClick($event)"
+       *ngFor="let cell of tempArr">
+    <div *ngIf="cell!=' '">{{cell | date:'dd'}}</div></div>
 </div>

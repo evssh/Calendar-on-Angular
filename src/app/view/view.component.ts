@@ -1,4 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {EventMy} from "../app.component";
 
 @Component({
   selector: 'app-view',
@@ -6,6 +7,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
+
+  @Input() eventsMy: EventMy[]
 
   @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
 
@@ -15,10 +18,13 @@ export class ViewComponent implements OnInit {
   monthView: Date
   selectDay: Date
   today = new Date()
+  flagToday: number
 
   constructor() { }
   ngOnInit() {
     this.refresh()
+    this.flagToday = this.today.getDate()
+    console.log('flag:', this.flagToday)
   }
   onClick(event) {
     if (event.target.innerText != '') {
@@ -58,7 +64,7 @@ export class ViewComponent implements OnInit {
   }
   addNumbers() {
     while (this.firstDay.getMonth() == this.theMonth) {
-      this.tempArr.push(this.firstDay.getDate())
+      this.tempArr.push(new Date(this.firstDay.setDate(this.firstDay.getDate())))
       this.firstDay.setDate(this.firstDay.getDate() + 1);
     }
   }
