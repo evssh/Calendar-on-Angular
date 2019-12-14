@@ -24,6 +24,7 @@
     <td>
       <app-add-event
         [day]="selectDay"
+        [eventsMy]="events"
         (onAddMyEvent)="updateMyEvent($event)"
         (onSelectDay)= "chooseDate($event)"
       ></app-add-event>

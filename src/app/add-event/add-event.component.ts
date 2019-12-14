@@ -9,6 +9,7 @@ import {EventMy} from "../app.component";
 export class AddEventComponent implements OnInit, OnChanges {
 
   @Input() day
+  @Input() eventsMy: EventMy[]
   @Output() onAddMyEvent: EventEmitter<EventMy> = new EventEmitter<EventMy>()
   @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
 
@@ -44,8 +45,20 @@ export class AddEventComponent implements OnInit, OnChanges {
         title: this.title,
         text: this.text,
       }
-      this.onAddMyEvent.emit(this.event)
-      this.onSelectDay.emit(this.day)
+      if (this.eventInArr(this.event.date.valueOf())) {
+        alert('На это время уже имеется событие!')
+      } else {
+        this.onAddMyEvent.emit(this.event)
+        this.onSelectDay.emit(this.day)
+      }
+    }
+  }
+  eventInArr(checkData) {
+    for (let i = 0; i < this.eventsMy.length; i++){
+      let dayEvAr = this.eventsMy[i].date.setMinutes(0,0,0).valueOf()
+      if (dayEvAr <= checkData && checkData < dayEvAr + 3600000) {
+        return true
+      }
     }
   }
 
