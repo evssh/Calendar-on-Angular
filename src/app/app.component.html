@@ -7,9 +7,11 @@
       <app-view
         (onSelectDay)= "chooseDate($event)"
         (viewOnOff)="changeView($event)"
+        (viewAdd)="showAdd($event)"
         [eventsMy]="events"
         [onOff]="viewMonth"
         [day]="selectDay"
+        [showAdE]="viewAdd"
       ></app-view>
     </td>
     <td style="background: aquamarine; align-self: baseline">
@@ -19,10 +21,13 @@
         [onOffD]="viewMonth"
         (onSelectDay)= "chooseDate($event)"
         (onRemoveEvent)="removeEvent($event)"
+        (viewAdd)="showAdd($event)"
+        [showAdE]="viewAdd"
       ></app-day>
     </td>
     <td>
       <app-add-event
+        [onOff]="viewAdd"
         [day]="selectDay"
         [eventsMy]="events"
         (onAddMyEvent)="updateMyEvent($event)"

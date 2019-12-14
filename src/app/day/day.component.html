@@ -3,7 +3,7 @@
     <button (click)="onClickLeft()"><</button>
     {{day | date: 'd MMMM yyyy'}}
     <button (click)="onClickRight()">></button>
-    <button style="float: right;">Add event</button>
+    <button style="float: right;"  (click)="showAdd()">Add event</button>
   </h5>
   <table style="font-size: 12px">
     <th>Time</th>

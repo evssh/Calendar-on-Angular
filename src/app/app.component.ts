@@ -13,7 +13,8 @@ export interface EventMy {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public viewMonth = true
+  viewMonth = true
+  viewAdd = false
   selectDay: Date = new Date()
   events: EventMy[] = [
     {date: new Date('December 6, 2019 20:20:23'),
@@ -34,6 +35,9 @@ export class AppComponent {
     console.log('id remove: ', id)
     this.events = this.events.filter( event => event.id !== id)
   }
+  showAdd(onOff){
+    this.viewAdd = onOff
+  }
   chooseDate(date) {
     this.selectDay = new Date(date)
   }
@@ -41,8 +45,12 @@ export class AppComponent {
     this.viewMonth = onOf
   }
   updateMyEvent(event: EventMy) {
-    event.id = this.events[this.events.length - 1].id + 1
-    console.log('MyEvent: ', event)
-    this.events.push(event)
+    if (this.events.length == 0) {
+      event.id = 1
+      this.events.push(event)
+    } else {
+      event.id = this.events[this.events.length - 1].id + 1
+      this.events.push(event)
+    }
   }
 }

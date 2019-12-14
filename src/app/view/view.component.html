@@ -1,5 +1,5 @@
 <div [class.main]="today" *ngIf="onOff">
-  <h4><button>Add event</button></h4>
+  <h4><button (click)="showAdd()">Add event</button></h4>
   <h5>
     <button (click)="onClickLeft()"><</button>
     {{monthView | date: 'MMMM yyyy'}}

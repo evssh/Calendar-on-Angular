@@ -11,9 +11,11 @@ export class DayComponent implements OnInit, OnChanges {
   @Input() day
   @Input() eventsMy: EventMy[]
   @Input() onOffD: boolean
+  @Input() showAdE: boolean
 
   @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
   @Output() onRemoveEvent = new EventEmitter<number>()
+  @Output() viewAdd: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   tempArrEvent: EventMy[]
   showArrEvents: EventMy[]
@@ -28,7 +30,9 @@ export class DayComponent implements OnInit, OnChanges {
 
   ngOnInit() {
   }
-
+  showAdd(){
+    this.viewAdd.emit(!this.showAdE)
+  }
   removeEvent(id) {
     this.onRemoveEvent.emit(id)
   }

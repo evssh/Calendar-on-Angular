@@ -11,9 +11,11 @@ export class ViewComponent implements OnInit, OnChanges {
   @Input() eventsMy: EventMy[]
   @Input() onOff: boolean
   @Input() day: Date
+  @Input() showAdE: boolean
 
   @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
   @Output() viewOnOff: EventEmitter<boolean> = new EventEmitter<boolean>()
+  @Output() viewAdd: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   firstDay: Date
   tempArr: Array<any>
@@ -28,6 +30,9 @@ export class ViewComponent implements OnInit, OnChanges {
   }
   ngOnInit() {
     this.refresh()
+  }
+  showAdd(){
+    this.viewAdd.emit(!this.showAdE)
   }
   paintEvent(day){
     for (let i = 0; i < this.eventsMy.length; i++) {

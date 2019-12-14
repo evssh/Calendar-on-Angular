@@ -10,6 +10,7 @@ export class AddEventComponent implements OnInit, OnChanges {
 
   @Input() day
   @Input() eventsMy: EventMy[]
+  @Input() onOff: boolean
   @Output() onAddMyEvent: EventEmitter<EventMy> = new EventEmitter<EventMy>()
   @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
 
@@ -35,7 +36,6 @@ export class AddEventComponent implements OnInit, OnChanges {
     this.time = ('0' + this.day.getHours()).slice(-2) + ':' + ('0' + this.day.getMinutes()).slice(-2)
     console.log('date: ', this.date, ' - time: ', this.time)
   }
-
   addEvent() {
     if (this.text.trim() && this.title.trim()) {
       this.dateGet = new Date(this.date)
