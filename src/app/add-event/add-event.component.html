@@ -1,14 +1,28 @@
 <div *ngIf="day">
   <p>Add event:</p>
   <br>
-  <input type="date" value="{{this.day | date:'yyyy-MM-dd'}}">
-  <input type="time" value="{{this.day | date: 'hh:mm'}}">
+  <input
+    type="date"
+    [(ngModel)]="date"
+  >
+  <input
+    type="time"
+    [(ngModel)]="time"
+  >
   <br>
-  <input type="text" value="Title">
+  <input
+    type="text"
+    value="Title"
+    [(ngModel)]="title"
+  >
   <br>
-  <input type="text" value="Description">
+  <input
+    type="text"
+    value="Description"
+    [(ngModel)]="text"
+  >
   <br>
-  <button>Add</button>
+  <button (click)="addEvent()">Add</button>
 </div>
 
 

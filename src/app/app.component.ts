@@ -29,10 +29,20 @@ export class AppComponent {
     // {date: new Date(),
     //     //   title: 'Live', text: 'is good!', id: 6},
   ];
+
+  removeEvent(id: number) {
+    console.log('id remove: ', id)
+    this.events = this.events.filter( event => event.id !== id)
+  }
   chooseDate(date) {
     this.selectDay = new Date(date)
   }
   changeView(onOf) {
     this.viewMonth = onOf
+  }
+  updateMyEvent(event: EventMy) {
+    event.id = this.events[this.events.length - 1].id + 1
+    console.log('MyEvent: ', event)
+    this.events.push(event)
   }
 }

@@ -13,8 +13,8 @@ export class DayComponent implements OnInit, OnChanges {
   @Input() onOffD: boolean
 
   @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
+  @Output() onRemoveEvent = new EventEmitter<number>()
 
-  hours: Array<number> = []
   tempArrEvent: EventMy[]
   showArrEvents: EventMy[]
 
@@ -23,10 +23,14 @@ export class DayComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.eventInDay()
     this.showEvents()
+    console.log('eventsMy in day component: ', this.eventsMy)
   }
 
   ngOnInit() {
-    this.pushHours()
+  }
+
+  removeEvent(id) {
+    this.onRemoveEvent.emit(id)
   }
 
   showEvents() {
@@ -53,11 +57,6 @@ export class DayComponent implements OnInit, OnChanges {
       if ( buf1.setHours(0,0,0,0) === buf2.setHours(0,0,0,0)) {
         this.tempArrEvent.push(this.eventsMy[i])
       }
-    }
-  }
-  pushHours() {
-    for (let i = 0; i < 25; i++) {
-      this.hours.push(i)
     }
   }
   onClickLeft() {
