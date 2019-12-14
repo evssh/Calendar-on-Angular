@@ -16,8 +16,6 @@ export class AppComponent {
   public viewMonth = true
   selectDay: Date = new Date()
   events: EventMy[] = [
-    // {date: new Date(new Date().setHours(0)), title: 'Sleep', text: 'I need sleep', id: 1},
-    // {date: new Date(), title: 'Coding', text: 'Just do it!', id: 2},
     {date: new Date('December 6, 2019 20:20:23'),
       title: 'Start coding', text: 'lazy ass', id: 1},
     {date: new Date('December 12, 2019 06:05:32'),
@@ -28,10 +26,11 @@ export class AppComponent {
       title: 'Dead line', text: 'just do it!', id: 4},
     {date: new Date('December 31, 2019 23:59:59'),
       title: 'New Year!', text: 'happy New Year 2020 are welcome!', id: 5},
+    // {date: new Date(),
+    //     //   title: 'Live', text: 'is good!', id: 6},
   ];
   chooseDate(date) {
     this.selectDay = new Date(date)
-    // console.log('select day: ', this.selectDay);
   }
   changeView(onOf) {
     this.viewMonth = onOf

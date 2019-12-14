@@ -1,23 +1,10 @@
 <div style="padding-left: 1px; padding-bottom: 0px; width: 400px;"  *ngIf="!onOffD && day" >
-
   <h5>
     <button (click)="onClickLeft()"><</button>
     {{day | date: 'd MMMM yyyy'}}
     <button (click)="onClickRight()">></button>
     <button style="float: right;">Add event</button>
   </h5>
-
-<!--  <button (click)="eventInDay()">?</button>-->
-
-<!--  <table style="font-size: 14px">-->
-<!--    <th>Time:</th>-->
-<!--    <tr *ngFor="let hour of hours">-->
-<!--      <td>{{hour}}</td>-->
-<!--      <td> Title: </td>-->
-<!--      <td> Text </td>-->
-<!--    </tr>-->
-<!--  </table>-->
-
   <table style="font-size: 12px">
     <th>Time</th>
     <th>Title</th>
@@ -30,16 +17,4 @@
       <button *ngIf="ev.title!=''" style="background: red">x</button>
     </tr>
   </table>
-
-<!--  <p *ngFor="let ev of showArrEvents">{{ev.date | date:'HH'}}   {{ev.title}}   {{ev.text}}</p>-->
-
-<!--  {{eventElement.title}}-->
-
-<!--  <div *ngFor="let hour of hours" style="text-align: left">-->
-
-<!--    <div style="float: left">Title</div>-->
-<!--    <div style="float: left">Text</div>-->
-<!--    {{hour}}-->
-<!--  </div>-->
-
 </div>

@@ -1,39 +1,29 @@
 <h2 style="text-align: center">The calendar
   <button (click)="viewMonth = !viewMonth">Month / Day</button>
 </h2>
-
 <table style="align-self: baseline">
   <tr style="vertical-align: 10px;" >
     <td style="background: burlywood;">
-
       <app-view
         (onSelectDay)= "chooseDate($event)"
         (viewOnOff)="changeView($event)"
         [eventsMy]="events"
         [onOff]="viewMonth"
+        [day]="selectDay"
       ></app-view>
-
     </td>
-
     <td style="background: aquamarine; align-self: baseline">
-
       <app-day
         [day]="selectDay"
         [eventsMy]="events"
         [onOffD]="viewMonth"
-      >
-<!--        *ngFor="let evnt of events"-->
-<!--        [eventElement] = evnt-->
-      </app-day>
-
+        (onSelectDay)= "chooseDate($event)"
+      ></app-day>
     </td>
-
     <td>
-
       <app-add-event
         [day]="selectDay"
       ></app-add-event>
-
     </td>
   </tr>
 </table>

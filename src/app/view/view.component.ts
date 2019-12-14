@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {EventMy} from "../app.component";
 
 @Component({
@@ -6,10 +6,11 @@ import {EventMy} from "../app.component";
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss']
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent implements OnInit, OnChanges {
 
   @Input() eventsMy: EventMy[]
   @Input() onOff: boolean
+  @Input() day: Date
 
   @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
   @Output() viewOnOff: EventEmitter<boolean> = new EventEmitter<boolean>()
@@ -22,10 +23,12 @@ export class ViewComponent implements OnInit {
   today = new Date()
 
   constructor() { }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.refresh()
+  }
   ngOnInit() {
     this.refresh()
   }
-
   paintEvent(day){
     for (let i = 0; i < this.eventsMy.length; i++) {
       if ((this.eventsMy[i].date.getMonth() == this.theMonth) &&
@@ -47,21 +50,18 @@ export class ViewComponent implements OnInit {
     }
   }
   onClickLeft() {
-    this.today.setMonth(this.today.getMonth()-1)
+    this.day.setMonth(this.day.getMonth()-1)
     this.refresh()
   }
-
   onClickRight() {
-    this.today.setMonth(this.today.getMonth()+1)
+    this.day.setMonth(this.day.getMonth()+1)
     this.refresh()
   }
-
   refresh() {
-    console.log(this.today)
-    this.monthView = new Date(this.today)
-    this.firstDay = new Date(this.today.getFullYear(), this.today.getMonth())
+    this.monthView = new Date(this.day)
+    this.firstDay = new Date(this.day.getFullYear(), this.day.getMonth())
     this.tempArr = []
-    this.theMonth = this.today.getMonth() // месяцы в JS идут от 0 до 11, а не от 1 до 12
+    this.theMonth = this.day.getMonth()
     this.addFreeDays()
     this.addNumbers()
   }
@@ -77,7 +77,7 @@ export class ViewComponent implements OnInit {
   }
   addNumbers() {
     while (this.firstDay.getMonth() == this.theMonth) {
-      this.tempArr.push(new Date(this.firstDay.setDate(this.firstDay.getDate())))
+      this.tempArr.push(new Date(this.firstDay))
       this.firstDay.setDate(this.firstDay.getDate() + 1);
     }
   }
