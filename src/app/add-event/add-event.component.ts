@@ -11,6 +11,7 @@ export class AddEventComponent implements OnInit, OnChanges {
   @Input() day
   @Input() eventsMy: EventMy[]
   @Input() onOff: boolean
+  @Input() editId
   @Output() onAddMyEvent: EventEmitter<EventMy> = new EventEmitter<EventMy>()
   @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
 
@@ -24,17 +25,41 @@ export class AddEventComponent implements OnInit, OnChanges {
 
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
-   this.formatToForm()
+    if (this.editId.edit) {
+      // alert('Click Add to save event. Old data been delete.')
+      this.takeInfo(this.editId.id)
+    } else {
+      this.formatToForm(this.day)
+    }
   }
-
   ngOnInit() {
-   this.formatToForm()
   }
-  formatToForm() {
-    this.date = this.day.getFullYear() + '-' +
-      ('0' + (this.day.getMonth() + 1)).slice(-2) + '-' + ('0' + this.day.getDate()).slice(-2)
-    this.time = ('0' + this.day.getHours()).slice(-2) + ':' + ('0' + this.day.getMinutes()).slice(-2)
-    console.log('date: ', this.date, ' - time: ', this.time)
+  saveEvent(){
+    if (this.text.trim() && this.title.trim()) {
+      let changeEvent: EventMy[] = this.eventsMy
+      changeEvent = changeEvent.filter( event => event.id == this.editId.id)
+      changeEvent[0].title = this.title
+      changeEvent[0].text = this.text
+      this.onAddMyEvent.emit(this.event)
+      this.onSelectDay.emit(this.day)
+    }
+  }
+  takeInfo(id){
+    let editEvent: EventMy[] = this.eventsMy
+    editEvent = editEvent.filter( event => event.id == id)
+    this.title = editEvent[0].title
+    this.text = editEvent[0].text
+    this.time = ('0' + editEvent[0].date.getHours()).slice(-2) + ':' +
+      ('0' + editEvent[0].date.getMinutes()).slice(-2)
+    console.log('time edit:', this.time)
+    console.log('event edit: ', editEvent)
+    this.formatToForm(editEvent[0].date)
+  }
+  formatToForm(dat) {
+    this.date = dat.getFullYear() + '-' +
+      ('0' + (dat.getMonth() + 1)).slice(-2) + '-' + ('0' + dat.getDate()).slice(-2)
+    this.time = ('0' + dat.getHours()).slice(-2) + ':' + ('0' + dat.getMinutes()).slice(-2)
+    console.log('date: ', dat, ' - time: ', dat)
   }
   addEvent() {
     if (this.text.trim() && this.title.trim()) {
@@ -46,7 +71,7 @@ export class AddEventComponent implements OnInit, OnChanges {
         text: this.text,
       }
       if (this.eventInArr(this.event.date.valueOf())) {
-        alert('На это время уже имеется событие!')
+        alert('There is already an event at this time! Chose any other time.')
       } else {
         this.onAddMyEvent.emit(this.event)
         this.onSelectDay.emit(this.day)

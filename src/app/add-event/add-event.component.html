@@ -22,7 +22,8 @@
     [(ngModel)]="text"
   >
   <br>
-  <button (click)="addEvent()">Add</button>
+  <button (click)="addEvent()" *ngIf="!editId.edit">Add</button>
+  <button (click)="saveEvent()" *ngIf="editId.edit">Save</button>
 </div>
 
 

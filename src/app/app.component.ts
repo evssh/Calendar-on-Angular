@@ -15,6 +15,10 @@ export interface EventMy {
 export class AppComponent {
   viewMonth = true
   viewAdd = false
+  idToEdit = {
+    edit: false,
+    id: 0
+  }
   selectDay: Date = new Date()
   events: EventMy[] = [
     {date: new Date('December 6, 2019 20:20:23'),
@@ -30,7 +34,14 @@ export class AppComponent {
     // {date: new Date(),
     //     //   title: 'Live', text: 'is good!', id: 6},
   ];
-
+  editEvent(id: number){
+    console.log('id edit:', id)
+    this.idToEdit = {
+      edit: true,
+      id: id
+    }
+    this.viewAdd = true
+  }
   removeEvent(id: number) {
     console.log('id remove: ', id)
     this.events = this.events.filter( event => event.id !== id)
@@ -45,12 +56,30 @@ export class AppComponent {
     this.viewMonth = onOf
   }
   updateMyEvent(event: EventMy) {
-    if (this.events.length == 0) {
-      event.id = 1
-      this.events.push(event)
-    } else {
+    if (event.id == 0) {
       event.id = this.events[this.events.length - 1].id + 1
       this.events.push(event)
+      this.idToEdit = {
+        edit: false,
+        id: 0
+      }
+    } else {
+      if (this.events.length == 0) { // если отсутствуют события заведем первое
+        event.id = 1
+        this.events.push(event)
+      } else { // если пришел с id, значит удаляем старый объект и записываем новый, меняя id
+        if (event.id) {
+          let tempEvent = event
+          this.removeEvent(event.id)
+          tempEvent.id = 0
+          this.updateMyEvent(tempEvent)
+          console.log('change  id: ')
+        } else { // если без id, то присвоим +1 к последнему
+          event.id = this.events[this.events.length - 1].id + 1
+          this.events.push(event)
+        }
+      }
     }
+
   }
 }

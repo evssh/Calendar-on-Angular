@@ -13,7 +13,7 @@
       <td>{{ev.date | date:'HH:mm'}}</td>
       <td><b>{{ev.title}}</b></td>
       <td>{{ev.text}}</td>
-      <button *ngIf="ev.title!=''">Edit</button>
+      <button *ngIf="ev.title!=''" (click)="editEvent(ev.id)">Edit</button>
       <button *ngIf="ev.title!=''" style="background: red" (click)="removeEvent(ev.id)">&times;</button>
     </tr>
   </table>
