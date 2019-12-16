@@ -52,28 +52,12 @@ export class AppComponent {
     this.viewMonth = onOf
   }
   updateMyEvent(event: EventMy) { // обновить события
-    if (event.id == 0) { // если id = 0, значит это редактирование события
+    if (this.events.length == 0) { // если нет событий, то заведем первое
+      event.id = 1
+      this.events.push(event)
+    } else {
       event.id = this.events[this.events.length - 1].id + 1
       this.events.push(event)
-      this.idToEdit = { // после записи редактированного события меняем флаг
-        edit: false,
-        id: 0
-      }
-    } else {
-      if (this.events.length == 0) { // если отсутствуют события заведем первое
-        event.id = 1
-        this.events.push(event)
-      } else { // если пришел с id, значит удаляем старый объект и записываем новый, меняя id
-        if (event.id) {
-          let tempEvent = event
-          this.removeEvent(event.id)
-          tempEvent.id = 0
-          this.updateMyEvent(tempEvent)
-        } else { // если без id, то присвоим +1 к последнему, значит идет запись нового события
-          event.id = this.events[this.events.length - 1].id + 1
-          this.events.push(event)
-        }
-      }
     }
   }
 }

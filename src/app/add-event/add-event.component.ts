@@ -39,8 +39,8 @@ export class AddEventComponent implements OnInit, OnChanges {
       changeEvent = changeEvent.filter( event => event.id == this.editId.id)
       changeEvent[0].title = this.title
       changeEvent[0].text = this.text
-      this.onAddMyEvent.emit(this.event)
       this.onSelectDay.emit(this.day)
+      this.editId.edit = false
     }
   }
   takeInfo(id){ // взять данные из редактируемого события
@@ -50,15 +50,12 @@ export class AddEventComponent implements OnInit, OnChanges {
     this.text = editEvent[0].text
     this.time = ('0' + editEvent[0].date.getHours()).slice(-2) + ':' +
       ('0' + editEvent[0].date.getMinutes()).slice(-2)
-    console.log('time edit:', this.time)
-    console.log('event edit: ', editEvent)
     this.formatToForm(editEvent[0].date)
   }
   formatToForm(dat) { // готовим данные для формы
     this.date = dat.getFullYear() + '-' +
       ('0' + (dat.getMonth() + 1)).slice(-2) + '-' + ('0' + dat.getDate()).slice(-2)
     this.time = ('0' + dat.getHours()).slice(-2) + ':' + ('0' + dat.getMinutes()).slice(-2)
-    console.log('date: ', dat, ' - time: ', dat)
   }
   addEvent() { // добавляем событие
     if (this.text.trim() && this.title.trim()) {
@@ -85,5 +82,4 @@ export class AddEventComponent implements OnInit, OnChanges {
       }
     }
   }
-
 }
