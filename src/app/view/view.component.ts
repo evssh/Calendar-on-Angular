@@ -31,38 +31,38 @@ export class ViewComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.refresh()
   }
-  showAdd(){
+  showAdd(){ // скрыть/показать компонент добавления события
     this.viewAdd.emit(!this.showAdE)
   }
-  paintEvent(day){
+  paintEvent(day){ // закрасить дни с событиями
     for (let i = 0; i < this.eventsMy.length; i++) {
       if ((this.eventsMy[i].date.getMonth() == this.theMonth) &&
         (this.eventsMy[i].date.getDate() == +day))
         return true
     }
   }
-  painToday(day){
+  painToday(day){ // выделить текущий день
     let temp = new Date()
     let tempDay = temp.getDate()
     if (+day == tempDay && this.monthView.getMonth() == temp.getMonth()) return true
   }
-  onClick(event) {
-    if (event.target.innerText != '' && event.target.innerText != ' ' && event.target.innerText != '*') {
+  onClick(event) { // по клику на день переходим на вид этого дня
+    if (event.target.innerText != '' && event.target.innerText != ' ') {
       this.selectDay = new Date(this.monthView.getFullYear(),
                                   this.monthView.getMonth(), event.target.innerText)
       this.onSelectDay.emit(this.selectDay)
       this.viewOnOff.emit(!this.onOff)
     }
   }
-  onClickLeft() {
+  onClickLeft() { // показать предыдущий месяц
     this.day.setMonth(this.day.getMonth()-1)
     this.refresh()
   }
-  onClickRight() {
+  onClickRight() { // показать последующий месяц
     this.day.setMonth(this.day.getMonth()+1)
     this.refresh()
   }
-  refresh() {
+  refresh() { // обновить представление месяца
     this.monthView = new Date(this.day)
     this.firstDay = new Date(this.day.getFullYear(), this.day.getMonth())
     this.tempArr = []
@@ -75,12 +75,12 @@ export class ViewComponent implements OnInit, OnChanges {
     if (day == 0) day = 7; // сделать воскресенье (0) последним днем
     return day - 1;
   }
-  addFreeDays() {
+  addFreeDays() {  // добавить пустые ячейки в календарь
     for (let i = 0; i < this.getDay(this.firstDay); i++) {
       this.tempArr.push(' ')
     }
   }
-  addNumbers() {
+  addNumbers() { // добавить числа месяца
     while (this.firstDay.getMonth() == this.theMonth) {
       this.tempArr.push(new Date(this.firstDay))
       this.firstDay.setDate(this.firstDay.getDate() + 1);

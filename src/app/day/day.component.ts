@@ -26,38 +26,37 @@ export class DayComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.eventInDay()
     this.showEvents()
-    console.log('eventsMy in day component: ', this.eventsMy)
   }
 
   ngOnInit() {
   }
-  showAdd(){
+  showAdd(){ // показать/скрыть компонент редактирования
     this.viewAdd.emit(!this.showAdE)
   }
-  editEvent(id){
+  editEvent(id){ // передать id редактируемого события
     this.onEditEvent.emit(id)
   }
-  removeEvent(id) {
+  removeEvent(id) { // передать идентификатор удаляемого события
     this.onRemoveEvent.emit(id)
   }
 
-  showEvents() {
+  showEvents() { // показать события
       this.showArrEvents = []
       for (let i = 0; i < 24; i++) {
         for (let j = 0; j < this.tempArrEvent.length; j++) {
         let time = this.tempArrEvent[j].date.getHours()
-        if (i <= time && time < i + 1) {
+        if (i <= time && time < i + 1) { // для каждого часового интервала дня
           this.showArrEvents[i] = this.tempArrEvent[j]
         }
       }
-        if (!this.showArrEvents[i]) {
+        if (!this.showArrEvents[i]) { // если в интервале нет события, заполнить пустыми значениями
           let puttime = new Date(this.day)
           puttime.setHours(i)
           this.showArrEvents[i] = {date: puttime, title: '', text: ''}
         }
     }
   }
-  eventInDay() {
+  eventInDay() { // фильтруем все события конкретного дня
     this.tempArrEvent = []
     for (let i = 0; i < this.eventsMy.length; i++) {
       let buf1 = new Date(this.eventsMy[i].date)
@@ -67,13 +66,13 @@ export class DayComponent implements OnInit, OnChanges {
       }
     }
   }
-  onClickLeft() {
+  onClickLeft() { // переход на предыдущий день
     this.day = new Date(this.day.getFullYear(), this.day.getMonth(), this.day.getDate() - 1)
     this.eventInDay()
     this.showEvents()
     this.onSelectDay.emit(this.day)
   }
-  onClickRight() {
+  onClickRight() { // переход на последующий день
     this.day = new Date(this.day.getFullYear(), this.day.getMonth(), this.day.getDate() + 1)
     this.eventInDay()
     this.showEvents()

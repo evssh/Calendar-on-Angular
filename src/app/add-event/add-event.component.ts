@@ -25,8 +25,7 @@ export class AddEventComponent implements OnInit, OnChanges {
 
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.editId.edit) {
-      // alert('Click Add to save event. Old data been delete.')
+    if (this.editId.edit) { // если редактируем событие
       this.takeInfo(this.editId.id)
     } else {
       this.formatToForm(this.day)
@@ -34,7 +33,7 @@ export class AddEventComponent implements OnInit, OnChanges {
   }
   ngOnInit() {
   }
-  saveEvent(){
+  saveEvent(){ // сохранение редактируемого события
     if (this.text.trim() && this.title.trim()) {
       let changeEvent: EventMy[] = this.eventsMy
       changeEvent = changeEvent.filter( event => event.id == this.editId.id)
@@ -44,7 +43,7 @@ export class AddEventComponent implements OnInit, OnChanges {
       this.onSelectDay.emit(this.day)
     }
   }
-  takeInfo(id){
+  takeInfo(id){ // взять данные из редактируемого события
     let editEvent: EventMy[] = this.eventsMy
     editEvent = editEvent.filter( event => event.id == id)
     this.title = editEvent[0].title
@@ -55,13 +54,13 @@ export class AddEventComponent implements OnInit, OnChanges {
     console.log('event edit: ', editEvent)
     this.formatToForm(editEvent[0].date)
   }
-  formatToForm(dat) {
+  formatToForm(dat) { // готовим данные для формы
     this.date = dat.getFullYear() + '-' +
       ('0' + (dat.getMonth() + 1)).slice(-2) + '-' + ('0' + dat.getDate()).slice(-2)
     this.time = ('0' + dat.getHours()).slice(-2) + ':' + ('0' + dat.getMinutes()).slice(-2)
     console.log('date: ', dat, ' - time: ', dat)
   }
-  addEvent() {
+  addEvent() { // добавляем событие
     if (this.text.trim() && this.title.trim()) {
       this.dateGet = new Date(this.date)
       this.dateGet.setHours(+this.time.slice(0, 2), +this.time.slice(-2))
@@ -78,7 +77,7 @@ export class AddEventComponent implements OnInit, OnChanges {
       }
     }
   }
-  eventInArr(checkData) {
+  eventInArr(checkData) { // проверяем, не занят ли данный интервал
     for (let i = 0; i < this.eventsMy.length; i++){
       let dayEvAr = this.eventsMy[i].date.setMinutes(0,0,0).valueOf()
       if (dayEvAr <= checkData && checkData < dayEvAr + 3600000) {
