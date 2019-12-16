@@ -36,8 +36,8 @@ export class ViewComponent implements OnInit, OnChanges {
   }
   paintEvent(day){ // закрасить дни с событиями
     for (let i = 0; i < this.eventsMy.length; i++) {
-      if ((this.eventsMy[i].date.getMonth() == this.theMonth) &&
-        (this.eventsMy[i].date.getDate() == +day))
+      if (((new Date(Date.parse(this.eventsMy[i].date))).getMonth() == this.theMonth) &&
+        ((new Date(Date.parse(this.eventsMy[i].date))).getDate() == +day))
         return true
     }
   }

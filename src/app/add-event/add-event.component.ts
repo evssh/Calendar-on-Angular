@@ -41,6 +41,7 @@ export class AddEventComponent implements OnInit, OnChanges {
       changeEvent[0].text = this.text
       this.onSelectDay.emit(this.day)
       this.editId.edit = false
+      localStorage.setItem('events', JSON.stringify(this.eventsMy))
     }
   }
   takeInfo(id){ // взять данные из редактируемого события
@@ -76,7 +77,7 @@ export class AddEventComponent implements OnInit, OnChanges {
   }
   eventInArr(checkData) { // проверяем, не занят ли данный интервал
     for (let i = 0; i < this.eventsMy.length; i++){
-      let dayEvAr = this.eventsMy[i].date.setMinutes(0,0,0).valueOf()
+      let dayEvAr = (new Date(Date.parse(this.eventsMy[i].date))).setMinutes(0,0,0).valueOf()
       if (dayEvAr <= checkData && checkData < dayEvAr + 3600000) {
         return true
       }

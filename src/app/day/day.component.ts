@@ -44,7 +44,7 @@ export class DayComponent implements OnInit, OnChanges {
       this.showArrEvents = []
       for (let i = 0; i < 24; i++) {
         for (let j = 0; j < this.tempArrEvent.length; j++) {
-        let time = this.tempArrEvent[j].date.getHours()
+        let time = (new Date(Date.parse(this.tempArrEvent[j].date))).getHours()
         if (i <= time && time < i + 1) { // для каждого часового интервала дня
           this.showArrEvents[i] = this.tempArrEvent[j]
         }
@@ -59,7 +59,7 @@ export class DayComponent implements OnInit, OnChanges {
   eventInDay() { // фильтруем все события конкретного дня
     this.tempArrEvent = []
     for (let i = 0; i < this.eventsMy.length; i++) {
-      let buf1 = new Date(this.eventsMy[i].date)
+      let buf1 = new Date(Date.parse(this.eventsMy[i].date))
       let buf2 = new Date(this.day)
       if ( buf1.setHours(0,0,0,0) === buf2.setHours(0,0,0,0)) {
         this.tempArrEvent.push(this.eventsMy[i])
