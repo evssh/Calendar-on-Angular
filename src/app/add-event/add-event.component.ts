@@ -49,9 +49,9 @@ export class AddEventComponent implements OnInit, OnChanges {
     editEvent = editEvent.filter( event => event.id == id)
     this.title = editEvent[0].title
     this.text = editEvent[0].text
-    this.time = ('0' + editEvent[0].date.getHours()).slice(-2) + ':' +
-      ('0' + editEvent[0].date.getMinutes()).slice(-2)
-    this.formatToForm(editEvent[0].date)
+    this.time = ('0' + (new Date(Date.parse(editEvent[0].date))).getHours()).slice(-2) + ':' +
+      ('0' + (new Date(Date.parse(editEvent[0].date))).getMinutes()).slice(-2)
+    this.formatToForm((new Date(Date.parse(editEvent[0].date))))
   }
   formatToForm(dat) { // готовим данные для формы
     this.date = dat.getFullYear() + '-' +
