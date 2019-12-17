@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {EventMy} from "../app.component";
+import {MatDialogModule, MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {PopupAddEventComponent} from 'src/app/popup-add-event/popup-add-event.component';
 
 @Component({
   selector: 'app-view',
@@ -24,12 +26,22 @@ export class ViewComponent implements OnInit, OnChanges {
   selectDay: Date
   today = new Date()
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog
+  ) { }
   ngOnChanges(changes: SimpleChanges): void {
     this.refresh()
   }
   ngOnInit() {
     this.refresh()
+  }
+  showAddPopUp() {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = "60%";
+  this.dialog.open(PopupAddEventComponent, dialogConfig);
+
   }
   showAdd(){ // скрыть/показать компонент добавления события
     this.viewAdd.emit(!this.showAdE)
