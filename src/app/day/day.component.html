@@ -1,20 +1,26 @@
 <div style="padding-left: 1px; padding-bottom: 0px; width: 400px;"  *ngIf="!onOffD && day" >
   <h5>
-    <button (click)="onClickLeft()"><</button>
+    <button (click)="onClickChangeDay('previous')"><</button>
     {{day | date: 'd MMMM yyyy'}}
-    <button (click)="onClickRight()">></button>
+    <button (click)="onClickChangeDay('next')">></button>
     <button style="float: right;"  (click)="showAdd()">Add event</button>
   </h5>
   <table style="font-size: 12px">
-    <th>Time</th>
-    <th>Title</th>
-    <th>Text</th>
+    <tbody>
+    <tr>
+      <th>Time</th>
+      <th>Title</th>
+      <th>Text</th>
+    </tr>
     <tr *ngFor="let ev of showArrEvents">
       <td>{{ev.date | date:'HH:mm'}}</td>
       <td><b>{{ev.title}}</b></td>
       <td>{{ev.text}}</td>
-      <button *ngIf="ev.title!=''" (click)="editEvent(ev.id)">Edit</button>
-      <button *ngIf="ev.title!=''" style="background: red" (click)="removeEvent(ev.id)">&times;</button>
+      <ng-container *ngIf="ev.title!=''" >
+        <button (click)="editEvent(ev.id)">Edit</button>
+        <button style="background: red" (click)="removeEvent(ev.id)">&times;</button>
+      </ng-container>
     </tr>
+    </tbody>
   </table>
 </div>

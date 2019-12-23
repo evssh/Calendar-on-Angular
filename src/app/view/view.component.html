@@ -4,9 +4,9 @@
   //
   <h4><button (click)="showAdd()">Add event</button></h4>
   <h5>
-    <button (click)="onClickLeft()"><</button>
+    <button (click)="onClickChangeMonth('previous')"><</button>
     {{monthView | date: 'MMMM yyyy'}}
-    <button (click)="onClickRight()">></button>
+    <button (click)="onClickChangeMonth('next')">></button>
   </h5>
   <div [class.cell]="today">Mo</div>
   <div [class.cell]="today">Tu</div>

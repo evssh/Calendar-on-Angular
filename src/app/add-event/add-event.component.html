@@ -12,17 +12,15 @@
   <br>
   <input
     type="text"
-    value="Title"
     [(ngModel)]="title"
   >
   <br>
   <input
     type="text"
-    value="Description"
     [(ngModel)]="text"
   >
   <br>
-  <button (click)="addEvent()" *ngIf="!editId.edit">Add</button>
+  <button (click)="onAdd()" *ngIf="!editId.edit">Add</button>
   <br>
   <button (click)="saveEvent()" *ngIf="editId.edit">Save</button>
 </div>

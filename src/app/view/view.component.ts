@@ -66,13 +66,14 @@ export class ViewComponent implements OnInit, OnChanges {
       this.viewOnOff.emit(!this.onOff)
     }
   }
-  onClickLeft() { // показать предыдущий месяц
-    this.day.setMonth(this.day.getMonth()-1)
-    this.refresh()
-  }
-  onClickRight() { // показать последующий месяц
-    this.day.setMonth(this.day.getMonth()+1)
-    this.refresh()
+  onClickChangeMonth(direction) { // изменить месяц
+    if (direction == 'previous') {
+      this.day.setMonth(this.day.getMonth()-1)
+    }
+    if (direction == 'next') {
+      this.day.setMonth(this.day.getMonth()+1)
+    }
+    this.refresh();
   }
   refresh() { // обновить представление месяца
     this.monthView = new Date(this.day)

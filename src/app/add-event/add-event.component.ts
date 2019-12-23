@@ -33,10 +33,10 @@ export class AddEventComponent implements OnInit, OnChanges {
   }
   ngOnInit() {
   }
-  saveEvent(){ // сохранение редактируемого события
+  saveEvent() { // сохранение редактируемого события
     if (this.text.trim() && this.title.trim()) {
       let changeEvent: EventMy[] = this.eventsMy
-      changeEvent = changeEvent.filter( event => event.id == this.editId.id)
+      changeEvent[0] = changeEvent.find( event => event.id == this.editId.id)
       changeEvent[0].title = this.title
       changeEvent[0].text = this.text
       this.onSelectDay.emit(this.day)
@@ -58,7 +58,7 @@ export class AddEventComponent implements OnInit, OnChanges {
       ('0' + (dat.getMonth() + 1)).slice(-2) + '-' + ('0' + dat.getDate()).slice(-2)
     this.time = ('0' + dat.getHours()).slice(-2) + ':' + ('0' + dat.getMinutes()).slice(-2)
   }
-  addEvent() { // добавляем событие
+  onAdd() { // добавляем событие
     if (this.text.trim() && this.title.trim()) {
       this.dateGet = new Date(this.date)
       this.dateGet.setHours(+this.time.slice(0, 2), +this.time.slice(-2))
@@ -68,10 +68,10 @@ export class AddEventComponent implements OnInit, OnChanges {
         text: this.text,
       }
       if (this.eventInArr(this.event.date.valueOf())) {
-        alert('There is already an event at this time! Chose any other time.')
+        alert('There is already an event at this time! Chose any other time.');
       } else {
-        this.onAddMyEvent.emit(this.event)
-        this.onSelectDay.emit(this.day)
+        this.onAddMyEvent.emit(this.event);
+        this.onSelectDay.emit(this.day);
       }
     }
   }

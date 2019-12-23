@@ -66,16 +66,15 @@ export class DayComponent implements OnInit, OnChanges {
       }
     }
   }
-  onClickLeft() { // переход на предыдущий день
-    this.day = new Date(this.day.getFullYear(), this.day.getMonth(), this.day.getDate() - 1)
-    this.eventInDay()
-    this.showEvents()
-    this.onSelectDay.emit(this.day)
-  }
-  onClickRight() { // переход на последующий день
-    this.day = new Date(this.day.getFullYear(), this.day.getMonth(), this.day.getDate() + 1)
-    this.eventInDay()
-    this.showEvents()
-    this.onSelectDay.emit(this.day)
+  onClickChangeDay(direction) { // смена дня
+    if (direction == 'previous') {
+      this.day = new Date(this.day.getFullYear(), this.day.getMonth(), this.day.getDate() - 1);
+    }
+    if (direction == 'next') {
+      this.day = new Date(this.day.getFullYear(), this.day.getMonth(), this.day.getDate() + 1);
+    }
+    this.eventInDay();
+    this.showEvents();
+    this.onSelectDay.emit(this.day);
   }
 }
