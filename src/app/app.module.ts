@@ -6,8 +6,6 @@ import { DayComponent } from './day/day.component';
 import {FormsModule} from '@angular/forms';
 import { AddEventComponent } from './add-event/add-event.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PopupAddEventComponent } from './popup-add-event/popup-add-event.component';
-import {MatButtonModule, MatDialogModule, MatIconModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -15,19 +13,14 @@ import {MatButtonModule, MatDialogModule, MatIconModule} from "@angular/material
     ViewComponent,
     DayComponent,
     AddEventComponent,
-    PopupAddEventComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatIconModule,
-
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[PopupAddEventComponent]
+  entryComponents:[]
 })
 export class AppModule { }
