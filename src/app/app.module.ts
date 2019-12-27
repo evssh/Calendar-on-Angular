@@ -6,6 +6,7 @@ import { DayComponent } from './day/day.component';
 import {FormsModule} from '@angular/forms';
 import { AddEventComponent } from './add-event/add-event.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EventsListComponent } from './events-list/events-list.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ViewComponent,
     DayComponent,
     AddEventComponent,
+    EventsListComponent,
   ],
   imports: [
     BrowserModule,

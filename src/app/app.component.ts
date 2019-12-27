@@ -13,7 +13,8 @@ export interface EventMy {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  viewMonth = true
+  viewMonth = true;
+  showList = false;
   viewAdd = false
   idToEdit = { // идентификатор редактируемого события
     edit: false, // флаг необходимости редактирования

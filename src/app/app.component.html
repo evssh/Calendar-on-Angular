@@ -36,5 +36,16 @@
         (onSelectDay)= "chooseDate($event)"
       ></app-add-event>
     </td>
+    <td>
+      <button (click)="showList = !showList">Show all events</button>
+        <ng-container *ngIf="showList">
+          <p>Events list:</p>
+          <app-events-list style="font-size: 12px"
+            *ngFor="let e of events"
+            [event]="e"
+          >
+          </app-events-list>
+        </ng-container>
+    </td>
   </tr>
 </table>
