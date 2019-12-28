@@ -52,6 +52,7 @@ export class DayComponent implements OnInit, OnChanges {
         if (!this.showArrEvents[i]) { // если в интервале нет события, заполнить пустыми значениями
           let puttime = new Date(this.day)
           puttime.setHours(i)
+          puttime.setMinutes(0);
           this.showArrEvents[i] = {date: puttime, title: '', text: ''}
         }
     }
