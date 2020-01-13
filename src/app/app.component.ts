@@ -14,6 +14,8 @@ export interface EventMy {
 })
 export class AppComponent {
   viewMonth = true;
+  search = '';
+  searchField = 'title';
   showList = false;
   viewAdd = false
   idToEdit = { // идентификатор редактируемого события

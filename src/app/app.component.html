@@ -40,8 +40,14 @@
       <button (click)="showList = !showList">Show all events</button>
         <ng-container *ngIf="showList">
           <p>Events list:</p>
+          filter by
+          <button (click)="searchField = 'title'">Title</button> or
+          <button (click)="searchField = 'text'">Text</button>
+          <br>
+          <input type="text" [(ngModel)]="search">
+          <br>
           <app-events-list style="font-size: 12px"
-            *ngFor="let e of events"
+            *ngFor="let e of events | filter: search: searchField"
             [event]="e"
           >
           </app-events-list>
