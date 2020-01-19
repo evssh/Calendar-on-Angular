@@ -17,11 +17,11 @@ export class AppComponent {
   search = '';
   searchField = 'title';
   showList = false;
-  viewAdd = false
+  viewAdd = false;
   idToEdit = { // идентификатор редактируемого события
     edit: false, // флаг необходимости редактирования
     id: 0
-  }
+  };
   selectDay: Date = new Date()
   events: EventMy[] = JSON.parse(localStorage.getItem('events')) || [
     {date: new Date('December 6, 2019 20:20:23'),
@@ -33,6 +33,7 @@ export class AppComponent {
     {date: new Date('December 31, 2019 23:59:59'),
       title: 'New Year!', text: 'happy New Year 2020 are welcome!', id: 4},
   ];
+
   editEvent(id: number){ // редактируемое событие
     this.idToEdit = {
       edit: true, // флаг необходимости редактирования
