@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {EventMy} from "../app.component";
+import {EventsMakerService} from "../services/events-maker.service";
 
 @Component({
   selector: 'app-view',
@@ -8,7 +9,6 @@ import {EventMy} from "../app.component";
 })
 export class ViewComponent implements OnInit, OnChanges {
 
-  @Input() eventsMy: EventMy[]
   @Input() onOff: boolean
   @Input() day: Date
   @Input() showAdE: boolean
@@ -24,7 +24,7 @@ export class ViewComponent implements OnInit, OnChanges {
   selectDay: Date
   today = new Date()
 
-  constructor() { }
+  constructor(private eventMaker: EventsMakerService) {}
   ngOnChanges(changes: SimpleChanges): void {
     this.refresh()
   }
@@ -35,9 +35,9 @@ export class ViewComponent implements OnInit, OnChanges {
     this.viewAdd.emit(!this.showAdE)
   }
   paintEvent(day){ // закрасить дни с событиями
-    for (let i = 0; i < this.eventsMy.length; i++) {
-      if (((new Date(Date.parse(this.eventsMy[i].date))).getMonth() == this.theMonth) &&
-        ((new Date(Date.parse(this.eventsMy[i].date))).getDate() == +day))
+    for (let i = 0; i < this.eventMaker.events.length; i++) {
+      if (((new Date(Date.parse(this.eventMaker.events[i].date))).getMonth() == this.theMonth) &&
+        ((new Date(Date.parse(this.eventMaker.events[i].date))).getDate() == +day))
         return true
     }
   }

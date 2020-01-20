@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {EventMy} from "../app.component";
+import {EventsMakerService} from "../services/events-maker.service";
 
 @Component({
   selector: 'app-day',
@@ -9,7 +10,6 @@ import {EventMy} from "../app.component";
 export class DayComponent implements OnInit, OnChanges {
 
   @Input() day
-  @Input() eventsMy: EventMy[]
   @Input() onOffD: boolean
   @Input() showAdE: boolean
 
@@ -21,7 +21,7 @@ export class DayComponent implements OnInit, OnChanges {
   tempArrEvent: EventMy[]
   showArrEvents: EventMy[]
 
-  constructor() { }
+  constructor(private eventMaker: EventsMakerService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.eventInDay()
@@ -59,11 +59,11 @@ export class DayComponent implements OnInit, OnChanges {
   }
   eventInDay() { // фильтруем все события конкретного дня
     this.tempArrEvent = []
-    for (let i = 0; i < this.eventsMy.length; i++) {
-      let buf1 = new Date(Date.parse(this.eventsMy[i].date))
+    for (let i = 0; i < this.eventMaker.events.length; i++) {
+      let buf1 = new Date(Date.parse(this.eventMaker.events[i].date))
       let buf2 = new Date(this.day)
       if ( buf1.setHours(0,0,0,0) === buf2.setHours(0,0,0,0)) {
-        this.tempArrEvent.push(this.eventsMy[i])
+        this.tempArrEvent.push(this.eventMaker.events[i])
       }
     }
   }

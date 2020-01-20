@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {EventMy} from "../app.component";
+import {EventsMakerService} from "../services/events-maker.service";
 
 @Component({
   selector: 'app-add-event',
@@ -9,7 +10,6 @@ import {EventMy} from "../app.component";
 export class AddEventComponent implements OnInit, OnChanges {
 
   @Input() day
-  @Input() eventsMy: EventMy[]
   @Input() onOff: boolean
   @Input() editId
   @Output() onAddMyEvent: EventEmitter<EventMy> = new EventEmitter<EventMy>()
@@ -23,7 +23,7 @@ export class AddEventComponent implements OnInit, OnChanges {
   id: number
   dateGet: Date
 
-  constructor() { }
+  constructor(private eventMaker: EventsMakerService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (this.editId.edit) { // если редактируем событие
       this.takeInfo(this.editId.id)
@@ -35,17 +35,17 @@ export class AddEventComponent implements OnInit, OnChanges {
   }
   saveEvent() { // сохранение редактируемого события
     if (this.text.trim() && this.title.trim()) {
-      let changeEvent: EventMy[] = this.eventsMy
+      let changeEvent: EventMy[] = this.eventMaker.events
       changeEvent[0] = changeEvent.find( event => event.id == this.editId.id)
       changeEvent[0].title = this.title
       changeEvent[0].text = this.text
       this.onSelectDay.emit(this.day)
       this.editId.edit = false
-      localStorage.setItem('events', JSON.stringify(this.eventsMy))
+      localStorage.setItem('events', JSON.stringify(this.eventMaker.events))
     }
   }
   takeInfo(id){ // взять данные из редактируемого события
-    let editEvent: EventMy[] = this.eventsMy
+    let editEvent: EventMy[] = this.eventMaker.events
     editEvent = editEvent.filter( event => event.id == id)
     this.title = editEvent[0].title
     this.text = editEvent[0].text
@@ -76,8 +76,8 @@ export class AddEventComponent implements OnInit, OnChanges {
     }
   }
   eventInArr(checkData) { // проверяем, не занят ли данный интервал
-    for (let i = 0; i < this.eventsMy.length; i++){
-      let dayEvAr = (new Date(Date.parse(this.eventsMy[i].date))).setMinutes(0,0,0).valueOf()
+    for (let i = 0; i < this.eventMaker.events.length; i++){
+      let dayEvAr = (new Date(Date.parse(this.eventMaker.events[i].date))).setMinutes(0,0,0).valueOf()
       if (dayEvAr <= checkData && checkData < dayEvAr + 3600000) {
         return true
       }

@@ -10,7 +10,7 @@ export class EventsMakerService {
 
   events: EventMy[] = JSON.parse(localStorage.getItem('events')) || [
     {date: new Date('December 6, 2019 20:20:23'),
-      title: 'Start coding', text: 'lazy ass', id: 1},
+      title: 'Start coding', text: 'lazy me', id: 1},
     {date: new Date('December 12, 2019 06:05:32'),
       title: 'Morning?', text: 'good morning!', id: 2},
     {date: new Date('December 17, 2019 23:59:59'),
