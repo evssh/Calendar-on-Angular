@@ -18,4 +18,25 @@ export class EventsMakerService {
     {date: new Date('December 31, 2019 23:59:59'),
       title: 'New Year!', text: 'happy New Year 2020 are welcome!', id: 4},
   ];
+
+  timeBusy(checkData) { // в часовом интервале есть событие?
+    for (const e of this.events) {
+      const eventHour = (new Date(Date.parse(e.date))).setMinutes(0, 0, 0).valueOf()
+      if (eventHour <= checkData && checkData < eventHour + 3600000) {
+        return true;
+      }
+    }
+  }
+
+  updateEvents(event: EventMy) { // обновить события
+    if (this.events.length === 0) { // если нет событий, то заведем первое
+      event.id = 1;
+      this.events.push(event);
+      localStorage.setItem('events', JSON.stringify(this.events));
+    } else {
+      event.id = this.events[this.events.length - 1].id + 1;
+      this.events.push(event);
+      localStorage.setItem('events', JSON.stringify(this.events));
+    }
+  }
 }

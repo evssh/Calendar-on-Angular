@@ -46,15 +46,4 @@ export class AppComponent {
   changeView(onOf) { // показать/скрыть представление месяца
     this.viewMonth = onOf
   }
-  updateMyEvent(event: EventMy) { // обновить события
-    if (this.eventMaker.events.length == 0) { // если нет событий, то заведем первое
-      event.id = 1
-      this.eventMaker.events.push(event)
-      localStorage.setItem('events', JSON.stringify(this.eventMaker.events))
-    } else {
-      event.id = this.eventMaker.events[this.eventMaker.events.length - 1].id + 1
-      this.eventMaker.events.push(event)
-      localStorage.setItem('events', JSON.stringify(this.eventMaker.events))
-    }
-  }
 }

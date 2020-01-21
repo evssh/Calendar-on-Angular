@@ -5,23 +5,23 @@
   <tr style="vertical-align: 10px;" >
     <td style="background: burlywood;">
       <app-view
-        (onSelectDay)= "chooseDate($event)"
-        (viewOnOff)="changeView($event)"
-        (viewAdd)="showAdd($event)"
         [onOff]="viewMonth"
         [day]="selectDay"
         [showAdE]="viewAdd"
+        (onSelectDay)= "chooseDate($event)"
+        (viewOnOff)="changeView($event)"
+        (viewAdd)="showAdd($event)"
       ></app-view>
     </td>
     <td style="background: aquamarine; align-self: baseline">
       <app-day
         [day]="selectDay"
         [onOffD]="viewMonth"
+        [showAdE]="viewAdd"
         (onSelectDay)= "chooseDate($event)"
         (onRemoveEvent)="removeEvent($event)"
         (onEditEvent)="editEvent($event)"
         (viewAdd)="showAdd($event)"
-        [showAdE]="viewAdd"
       ></app-day>
     </td>
     <td>
@@ -29,7 +29,6 @@
         [onOff]="viewAdd"
         [day]="selectDay"
         [editId]="idToEdit"
-        (onAddMyEvent)="updateMyEvent($event)"
         (onSelectDay)= "chooseDate($event)"
       ></app-add-event>
     </td>

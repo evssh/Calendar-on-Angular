@@ -12,7 +12,6 @@ export class AddEventComponent implements OnInit, OnChanges {
   @Input() day
   @Input() onOff: boolean
   @Input() editId
-  @Output() onAddMyEvent: EventEmitter<EventMy> = new EventEmitter<EventMy>()
   @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
 
   event: EventMy
@@ -35,8 +34,8 @@ export class AddEventComponent implements OnInit, OnChanges {
   }
   saveEvent() { // сохранение редактируемого события
     if (this.text.trim() && this.title.trim()) {
-      let changeEvent: EventMy[] = this.eventMaker.events
-      changeEvent[0] = changeEvent.find( event => event.id == this.editId.id)
+      const changeEvent: EventMy[] = this.eventMaker.events
+      changeEvent[0] = changeEvent.find( event => event.id === this.editId.id)
       changeEvent[0].title = this.title
       changeEvent[0].text = this.text
       this.onSelectDay.emit(this.day)
@@ -46,7 +45,7 @@ export class AddEventComponent implements OnInit, OnChanges {
   }
   takeInfo(id){ // взять данные из редактируемого события
     let editEvent: EventMy[] = this.eventMaker.events
-    editEvent = editEvent.filter( event => event.id == id)
+    editEvent = editEvent.filter( event => event.id === id)
     this.title = editEvent[0].title
     this.text = editEvent[0].text
     this.time = ('0' + (new Date(Date.parse(editEvent[0].date))).getHours()).slice(-2) + ':' +
@@ -67,19 +66,11 @@ export class AddEventComponent implements OnInit, OnChanges {
         title: this.title,
         text: this.text,
       }
-      if (this.eventInArr(this.event.date.valueOf())) {
-        alert('There is already an event at this time! Chose any other time.');
+      if (this.eventMaker.timeBusy(this.event.date.valueOf())) {
+        alert('Time busy! Chose any other time.');
       } else {
-        this.onAddMyEvent.emit(this.event);
+        this.eventMaker.updateEvents(this.event);
         this.onSelectDay.emit(this.day);
-      }
-    }
-  }
-  eventInArr(checkData) { // проверяем, не занят ли данный интервал
-    for (let i = 0; i < this.eventMaker.events.length; i++){
-      let dayEvAr = (new Date(Date.parse(this.eventMaker.events[i].date))).setMinutes(0,0,0).valueOf()
-      if (dayEvAr <= checkData && checkData < dayEvAr + 3600000) {
-        return true
       }
     }
   }
