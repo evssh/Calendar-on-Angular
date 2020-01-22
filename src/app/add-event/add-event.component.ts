@@ -19,28 +19,40 @@ export class AddEventComponent implements OnInit, OnChanges {
   time = ''
   title = 'Title'
   text = 'Text'
-  id: number
   dateGet: Date
 
   constructor(private eventMaker: EventsMakerService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (this.editId.edit) { // если редактируем событие
-      this.takeInfo(this.editId.id)
+      this.takeInfo(this.editId.id);
     } else {
-      this.formatToForm(this.day)
+      this.formatToForm(this.day);
     }
+    console.log('events: ', this.eventMaker.events);
   }
   ngOnInit() {
   }
   saveEvent() { // сохранение редактируемого события
     if (this.text.trim() && this.title.trim()) {
-      const changeEvent: EventMy[] = this.eventMaker.events
-      changeEvent[0] = changeEvent.find( event => event.id === this.editId.id)
-      changeEvent[0].title = this.title
-      changeEvent[0].text = this.text
-      this.onSelectDay.emit(this.day)
-      this.editId.edit = false
-      localStorage.setItem('events', JSON.stringify(this.eventMaker.events))
+      this.dateGet = new Date(this.date);
+      this.dateGet.setHours(+this.time.slice(0, 2), +this.time.slice(-2));
+      this.event = {
+        date: this.dateGet,
+        title: this.title,
+        text: this.text,
+      };
+      this.eventMaker.deleteEvent(this.event);
+      // this.eventMaker.pushEvent(this.event);
+      this.onSelectDay.emit(this.day);
+      this.editId.edit = false;
+      // const changeEvent: EventMy[] = this.eventMaker.events;
+      // changeEvent[0] = changeEvent.find( event => event.id === this.editId.id)
+      // console.log('editId.id: ', this.editId.id);
+      // changeEvent[0].title = this.title
+      // changeEvent[0].text = this.text
+      // this.onSelectDay.emit(this.day)
+      // this.editId.edit = false
+      // localStorage.setItem('events', JSON.stringify(this.eventMaker.events))
     }
   }
   takeInfo(id){ // взять данные из редактируемого события
@@ -69,7 +81,7 @@ export class AddEventComponent implements OnInit, OnChanges {
       if (this.eventMaker.timeBusy(this.event.date.valueOf())) {
         alert('Time busy! Chose any other time.');
       } else {
-        this.eventMaker.updateEvents(this.event);
+        this.eventMaker.pushEvent(this.event);
         this.onSelectDay.emit(this.day);
       }
     }

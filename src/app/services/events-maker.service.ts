@@ -28,15 +28,20 @@ export class EventsMakerService {
     }
   }
 
-  updateEvents(event: EventMy) { // обновить события
+  pushEvent(event: EventMy) {
     if (this.events.length === 0) { // если нет событий, то заведем первое
       event.id = 1;
       this.events.push(event);
       localStorage.setItem('events', JSON.stringify(this.events));
-    } else {
+    } else { // иначе добавить
       event.id = this.events[this.events.length - 1].id + 1;
       this.events.push(event);
       localStorage.setItem('events', JSON.stringify(this.events));
     }
+  }
+
+  deleteEvent(event: EventMy) { // удаляем событие
+    this.events = this.events.filter( e => e.id !== event.id);
+    localStorage.setItem('events', JSON.stringify(this.events));
   }
 }

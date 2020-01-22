@@ -34,11 +34,11 @@ export class DayComponent implements OnInit, OnChanges {
     this.viewAdd.emit(!this.showAdE)
   }
   editEvent(id){ // передать id редактируемого события
-    this.onEditEvent.emit(id)
+    this.onEditEvent.emit(id);
   }
-  removeEvent(id) { // передать идентификатор удаляемого события
-    this.onRemoveEvent.emit(id)
-  }
+  // removeEvent(id) { // передать идентификатор удаляемого события
+  //   this.onRemoveEvent.emit(id)
+  // }
 
   showEvents() { // показать события
       this.showArrEvents = []
