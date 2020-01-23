@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import {EventsMakerService} from "./services/events-maker.service";
 
 export interface EventMy {
-  date: any
-  title: string
-  text: string
-  id?: number
+  date: any;
+  title: string;
+  text: string;
+  id?: number;
 }
 
 @Component({
@@ -26,17 +26,17 @@ export class AppComponent {
   selectDay: Date = new Date();
 
   constructor(private eventMaker: EventsMakerService) {}
-  editEvent(id: number){ // редактируемое событие
+  editEvent(id: number) { // редактируемое событие
     this.idToEdit = {
       edit: true, // флаг необходимости редактирования
       id: id
     }
-    this.viewAdd = true // показать форму редактирования
+    this.viewAdd = true; // показать форму редактирования
   }
-  removeEvent(id: number) { // удаляем событие
-    this.eventMaker.events = this.eventMaker.events.filter( event => event.id !== id);
-    localStorage.setItem('events', JSON.stringify(this.eventMaker.events));
-  }
+  // removeEvent(id: number) { // удаляем событие
+  //   this.eventMaker.events = this.eventMaker.events.filter( event => event.id !== id);
+  //   localStorage.setItem('events', JSON.stringify(this.eventMaker.events));
+  // }
   showAdd(onOff){ // покажем форму добавления события
     this.viewAdd = onOff
   }

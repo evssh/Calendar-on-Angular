@@ -36,11 +36,10 @@ export class AddEventComponent implements OnInit, OnChanges {
       this.formatToService();
       this.eventMaker.change(this.event);
       this.onSelectDay.emit(this.day);
-      this.editId.edit = false;
     } else {
       alert('You need enter data. The event is not edited!');
-      this.editId.edit = false;
     }
+    this.editId.edit = false;
   }
   takeInfo(id) { // взять данные для формы из редактируемого события
     let editEvent: EventMy[] = this.eventMaker.events;

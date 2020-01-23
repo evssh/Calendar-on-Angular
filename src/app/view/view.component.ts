@@ -34,11 +34,11 @@ export class ViewComponent implements OnInit, OnChanges {
   showAdd(){ // скрыть/показать компонент добавления события
     this.viewAdd.emit(!this.showAdE)
   }
-  paintEvent(day){ // закрасить дни с событиями
-    for (let i = 0; i < this.eventMaker.events.length; i++) {
-      if (((new Date(Date.parse(this.eventMaker.events[i].date))).getMonth() == this.theMonth) &&
-        ((new Date(Date.parse(this.eventMaker.events[i].date))).getDate() == +day))
-        return true
+  paintEvent(day) { // закрасить дни с событиями
+    for (const ev of this.eventMaker.events) {
+      if (((new Date(Date.parse(ev.date))).getMonth() === this.theMonth) &&
+        ((new Date(Date.parse(ev.date))).getDate() === +day))
+        return true;
     }
   }
   painToday(day){ // выделить текущий день
