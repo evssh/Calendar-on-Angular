@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {EventMy} from "../app.component";
 import {EventsMakerService} from "../services/events-maker.service";
+import {DateService} from "../services/date.service";
 
 @Component({
   selector: 'app-add-event',
@@ -21,12 +22,15 @@ export class AddEventComponent implements OnInit, OnChanges {
   text = 'Text';
   dateGet: Date;
 
-  constructor(private eventMaker: EventsMakerService) { }
+  constructor(private eventMaker: EventsMakerService,
+              private dateS: DateService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (this.editId.edit) { // если редактируем событие
       this.takeInfo(this.editId.id);
     } else {
-      this.formatToForm(this.day);
+      // this.formatToForm(this.day);
+      this.date = this.dateS.dateToForm(this.day);
+      this.time = this.dateS.timeToForm(this.day);
     }
   }
   ngOnInit() {
@@ -46,15 +50,14 @@ export class AddEventComponent implements OnInit, OnChanges {
     editEvent = editEvent.filter( event => event.id === id);
     this.title = editEvent[0].title;
     this.text = editEvent[0].text;
-    this.time = ('0' + (new Date(Date.parse(editEvent[0].date))).getHours()).slice(-2) + ':' +
-      ('0' + (new Date(Date.parse(editEvent[0].date))).getMinutes()).slice(-2);
-    this.formatToForm((new Date(Date.parse(editEvent[0].date))));
+    this.time = this.dateS.timeToForm(editEvent[0].date);
+    // this.formatToForm((new Date(Date.parse(editEvent[0].date))));
   }
-  formatToForm(dat) { // готовим данные для формы
-    this.date = dat.getFullYear() + '-' +
-      ('0' + (dat.getMonth() + 1)).slice(-2) + '-' + ('0' + dat.getDate()).slice(-2)
-    this.time = ('0' + dat.getHours()).slice(-2) + ':' + ('0' + dat.getMinutes()).slice(-2)
-  }
+  // formatToForm(dat) { // готовим данные для формы
+  //   this.date = dat.getFullYear() + '-' +
+  //     ('0' + (dat.getMonth() + 1)).slice(-2) + '-' + ('0' + dat.getDate()).slice(-2)
+  //   this.time = ('0' + dat.getHours()).slice(-2) + ':' + ('0' + dat.getMinutes()).slice(-2)
+  // }
   onAdd() { // добавляем событие
     if (this.text.trim() && this.title.trim()) {
       this.formatToService();
