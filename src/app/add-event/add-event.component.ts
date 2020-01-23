@@ -9,17 +9,17 @@ import {EventsMakerService} from "../services/events-maker.service";
 })
 export class AddEventComponent implements OnInit, OnChanges {
 
-  @Input() day
-  @Input() onOff: boolean
-  @Input() editId
-  @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>()
+  @Input() day;
+  @Input() onOff: boolean;
+  @Input() editId;
+  @Output() onSelectDay: EventEmitter<Date> = new EventEmitter<Date>();
 
-  event: EventMy
-  date = ''
-  time = ''
-  title = 'Title'
-  text = 'Text'
-  dateGet: Date
+  event: EventMy;
+  date = '';
+  time = '';
+  title = 'Title';
+  text = 'Text';
+  dateGet: Date;
 
   constructor(private eventMaker: EventsMakerService) { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -28,41 +28,28 @@ export class AddEventComponent implements OnInit, OnChanges {
     } else {
       this.formatToForm(this.day);
     }
-    console.log('events: ', this.eventMaker.events);
   }
   ngOnInit() {
   }
   saveEvent() { // сохранение редактируемого события
     if (this.text.trim() && this.title.trim()) {
-      this.dateGet = new Date(this.date);
-      this.dateGet.setHours(+this.time.slice(0, 2), +this.time.slice(-2));
-      this.event = {
-        date: this.dateGet,
-        title: this.title,
-        text: this.text,
-      };
-      this.eventMaker.deleteEvent(this.event);
-      // this.eventMaker.pushEvent(this.event);
+      this.formatToService();
+      this.eventMaker.change(this.event);
       this.onSelectDay.emit(this.day);
       this.editId.edit = false;
-      // const changeEvent: EventMy[] = this.eventMaker.events;
-      // changeEvent[0] = changeEvent.find( event => event.id === this.editId.id)
-      // console.log('editId.id: ', this.editId.id);
-      // changeEvent[0].title = this.title
-      // changeEvent[0].text = this.text
-      // this.onSelectDay.emit(this.day)
-      // this.editId.edit = false
-      // localStorage.setItem('events', JSON.stringify(this.eventMaker.events))
+    } else {
+      alert('You need enter data. The event is not edited!');
+      this.editId.edit = false;
     }
   }
-  takeInfo(id){ // взять данные из редактируемого события
-    let editEvent: EventMy[] = this.eventMaker.events
-    editEvent = editEvent.filter( event => event.id === id)
-    this.title = editEvent[0].title
-    this.text = editEvent[0].text
+  takeInfo(id) { // взять данные для формы из редактируемого события
+    let editEvent: EventMy[] = this.eventMaker.events;
+    editEvent = editEvent.filter( event => event.id === id);
+    this.title = editEvent[0].title;
+    this.text = editEvent[0].text;
     this.time = ('0' + (new Date(Date.parse(editEvent[0].date))).getHours()).slice(-2) + ':' +
-      ('0' + (new Date(Date.parse(editEvent[0].date))).getMinutes()).slice(-2)
-    this.formatToForm((new Date(Date.parse(editEvent[0].date))))
+      ('0' + (new Date(Date.parse(editEvent[0].date))).getMinutes()).slice(-2);
+    this.formatToForm((new Date(Date.parse(editEvent[0].date))));
   }
   formatToForm(dat) { // готовим данные для формы
     this.date = dat.getFullYear() + '-' +
@@ -71,13 +58,7 @@ export class AddEventComponent implements OnInit, OnChanges {
   }
   onAdd() { // добавляем событие
     if (this.text.trim() && this.title.trim()) {
-      this.dateGet = new Date(this.date)
-      this.dateGet.setHours(+this.time.slice(0, 2), +this.time.slice(-2))
-      this.event = {
-        date: this.dateGet,
-        title: this.title,
-        text: this.text,
-      }
+      this.formatToService();
       if (this.eventMaker.timeBusy(this.event.date.valueOf())) {
         alert('Time busy! Chose any other time.');
       } else {
@@ -85,5 +66,15 @@ export class AddEventComponent implements OnInit, OnChanges {
         this.onSelectDay.emit(this.day);
       }
     }
+  }
+  formatToService() { // подготовка данных для работы с сервисом
+    this.dateGet = new Date(this.date);
+    this.dateGet.setHours(+this.time.slice(0, 2), +this.time.slice(-2));
+    this.event = {
+      date: this.dateGet,
+      title: this.title,
+      text: this.text,
+      id: this.editId.id,
+    };
   }
 }

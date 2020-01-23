@@ -18,42 +18,45 @@ export class DayComponent implements OnInit, OnChanges {
   @Output() onEditEvent = new EventEmitter<number>()
   @Output() viewAdd: EventEmitter<boolean> = new EventEmitter<boolean>()
 
-  tempArrEvent: EventMy[]
-  showArrEvents: EventMy[]
+  tempArrEvent: EventMy[];
+  showArrEvents: EventMy[];
 
   constructor(private eventMaker: EventsMakerService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.eventInDay()
-    this.showEvents()
+    this.refresh();
   }
 
   ngOnInit() {
   }
-  showAdd(){ // показать/скрыть компонент редактирования
-    this.viewAdd.emit(!this.showAdE)
+  refresh() {
+    this.eventInDay();
+    this.showEvents();
   }
-  editEvent(id){ // передать id редактируемого события
+  showAdd() { // показать/скрыть компонент редактирования
+    this.viewAdd.emit(!this.showAdE);
+  }
+  editEvent(id) { // передать id редактируемого события
     this.onEditEvent.emit(id);
   }
-  // removeEvent(id) { // передать идентификатор удаляемого события
-  //   this.onRemoveEvent.emit(id)
-  // }
-
+  delete(event) {
+    this.eventMaker.deleteEvent(event);
+    this.refresh();
+  }
   showEvents() { // показать события
-      this.showArrEvents = []
+      this.showArrEvents = [];
       for (let i = 0; i < 24; i++) {
         for (let j = 0; j < this.tempArrEvent.length; j++) {
-        let time = (new Date(Date.parse(this.tempArrEvent[j].date))).getHours()
+        const time = (new Date(Date.parse(this.tempArrEvent[j].date))).getHours();
         if (i <= time && time < i + 1) { // для каждого часового интервала дня
-          this.showArrEvents[i] = this.tempArrEvent[j]
+          this.showArrEvents[i] = this.tempArrEvent[j];
         }
       }
         if (!this.showArrEvents[i]) { // если в интервале нет события, заполнить пустыми значениями
-          let puttime = new Date(this.day)
-          puttime.setHours(i)
+          const puttime = new Date(this.day);
+          puttime.setHours(i);
           puttime.setMinutes(0);
-          this.showArrEvents[i] = {date: puttime, title: '', text: ''}
+          this.showArrEvents[i] = {date: puttime, title: '', text: ''};
         }
     }
   }

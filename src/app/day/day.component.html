@@ -18,7 +18,7 @@
       <td>{{ev.text}}</td>
       <ng-container *ngIf="ev.title!=''" >
         <button (click)="editEvent(ev.id)">Edit</button>
-        <button style="background: red" (click)="this.eventMaker.deleteEvent(ev)">&times;</button>
+        <button style="background: red" (click)="this.delete(ev)">&times;</button>
       </ng-container>
     </tr>
     </tbody>
