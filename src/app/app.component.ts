@@ -33,17 +33,13 @@ export class AppComponent {
     }
     this.viewAdd = true; // показать форму редактирования
   }
-  // removeEvent(id: number) { // удаляем событие
-  //   this.eventMaker.events = this.eventMaker.events.filter( event => event.id !== id);
-  //   localStorage.setItem('events', JSON.stringify(this.eventMaker.events));
-  // }
-  showAdd(onOff){ // покажем форму добавления события
-    this.viewAdd = onOff
+  showAdd(onOff) { // покажем форму добавления события
+    this.viewAdd = onOff;
   }
   chooseDate(date) { // меняем выбранную дату
-    this.selectDay = new Date(date)
+    this.selectDay = new Date(date);
   }
   changeView(onOf) { // показать/скрыть представление месяца
-    this.viewMonth = onOf
+    this.viewMonth = onOf;
   }
 }

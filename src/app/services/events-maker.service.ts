@@ -10,7 +10,7 @@ export class EventsMakerService {
 
   events: EventMy[] = JSON.parse(localStorage.getItem('events')) || [
     {date: new Date('December 6, 2019 20:20:23'),
-      title: 'Start coding', text: 'begin', id: 1},
+      title: 'Start coding', text: 'Lets begin', id: 1},
     {date: new Date('December 12, 2019 06:05:32'),
       title: 'Morning?', text: 'good morning!', id: 2},
     {date: new Date('December 17, 2019 23:59:59'),
@@ -21,7 +21,7 @@ export class EventsMakerService {
 
   timeBusy(checkData) { // в часовом интервале есть событие?
     for (const e of this.events) {
-      const eventHour = (new Date(Date.parse(e.date))).setMinutes(0, 0, 0).valueOf()
+      const eventHour = (new Date(Date.parse(e.date))).setMinutes(0, 0, 0).valueOf();
       if (eventHour <= checkData && checkData < eventHour + 3600000) {
         return true;
       }

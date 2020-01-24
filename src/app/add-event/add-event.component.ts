@@ -51,13 +51,7 @@ export class AddEventComponent implements OnInit, OnChanges {
     this.title = editEvent[0].title;
     this.text = editEvent[0].text;
     this.time = this.dateS.timeToForm(editEvent[0].date);
-    // this.formatToForm((new Date(Date.parse(editEvent[0].date))));
   }
-  // formatToForm(dat) { // готовим данные для формы
-  //   this.date = dat.getFullYear() + '-' +
-  //     ('0' + (dat.getMonth() + 1)).slice(-2) + '-' + ('0' + dat.getDate()).slice(-2)
-  //   this.time = ('0' + dat.getHours()).slice(-2) + ':' + ('0' + dat.getMinutes()).slice(-2)
-  // }
   onAdd() { // добавляем событие
     if (this.text.trim() && this.title.trim()) {
       this.formatToService();
@@ -69,7 +63,7 @@ export class AddEventComponent implements OnInit, OnChanges {
       }
     }
   }
-  formatToService() { // подготовка данных для работы с сервисом
+  formatToService() { // подготовка данных для работы с сервисом событий
     this.dateGet = new Date(this.date);
     this.dateGet.setHours(+this.time.slice(0, 2), +this.time.slice(-2));
     this.event = {

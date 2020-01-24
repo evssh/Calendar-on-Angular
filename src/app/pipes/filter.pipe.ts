@@ -12,7 +12,7 @@ export class FilterPipe implements PipeTransform {
     }
     return events.filter(event => {
       return event[field].toLowerCase().includes(search.toLowerCase());
-    })
+    });
   }
 
 }
